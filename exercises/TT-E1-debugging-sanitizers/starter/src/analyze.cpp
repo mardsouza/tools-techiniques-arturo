@@ -3,9 +3,10 @@
 #include <iostream>
 
 int main() {
+    // Print the next line to the console
     std::cout << "TT-E1: Broken Reconstruction (student starter)" << std::endl;
 
-    tt_e1::TrackReconstructor reco(/*minPt=*/1.0);
+    tt_e1::TrackReconstructor reco(1.0);
 
     // Create a small hit list
     for (int i = 0; i < 10; ++i) {
