@@ -28,4 +28,8 @@ add_executable(bench_layout
 )
 target_include_directories(bench_layout PRIVATE include)
 target_link_libraries(bench_layout PRIVATE benchmark::benchmark)
+add_executable(verify_layout
+src/verify_layout.cpp
 
+)
+target_include_directories(verify_layout PRIVATE include)

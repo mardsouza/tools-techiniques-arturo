@@ -49,16 +49,22 @@ struct ParticlesSoA {
 
         // Prevent GCC/Clang from turning pow(x, 2) into x*x at -O3.
         // We keep the math identical (still exponent 2.0), but make it a runtime value.
-        static volatile double two = 2.0;
-        const double exp = two;
-
+        //static volatile double two = 2.0;
+        //const double exp = two;
         for (size_t i = 0; i < px.size(); ++i) {
-            const double p2 =
-                std::pow(px[i], exp) +
-                std::pow(py[i], exp) +
-                std::pow(pz[i], exp);
+            // const double p2 =
+                // std::pow(px[i], exp) +
+                // std::pow(py[i], exp) +
+                // std::pow(pz[i], exp);
+                // +            // Cheaper and compiler-friendly: multiply instead of pow(..., 2)
+           const double px2 = px[i] * px[i];
+           const double py2 = py[i] * py[i];
+           const double pz2 = pz[i] * pz[i];
+           const double m2  = mass[i] * mass[i];
+           const double p2 = px2 + py2 + pz2;
+           sum += std::sqrt(p2 + m2);
 
-            sum += std::sqrt(p2 + std::pow(mass[i], exp));
+             // sum += std::sqrt(p2 + std::pow(mass[i], exp));
         }
         return sum;
     }
